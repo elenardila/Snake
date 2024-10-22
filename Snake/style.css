@@ -6,6 +6,8 @@
     align-items: center;
     background-color: #ecc97e;
     border: 2px solid black;
+    position: relative;
+
 }
 
 h1, h2{
@@ -23,12 +25,15 @@ body{
 }
 
 img{
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
+    position: absolute;
 }
 #snake {
     width: 20px;
     height: 20px;
     background-color: #4CAF50;
     border: 1px solid black;
+    position: relative;
 }
+
