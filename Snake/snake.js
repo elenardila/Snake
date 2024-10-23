@@ -1,5 +1,9 @@
 // Obtener el elemento de la serpiente
 let snake = document.getElementById("snake");
+let contador = document.getElementById("contador");
+let contenedor = document.getElementById("contenedor");
+
+let contadorPuntos = 0;
 
 let valorSuperior = 0;
 let valorIzquierdo = 0;
@@ -30,24 +34,27 @@ function moverManzana() {
 // Función para verificar colisión
 function verificarColision() {
   // 1. Obtener las dimensiones y posiciones de los elementos
-  const snakeRect = snake.getBoundingClientRect(); //método que devuelve información sobre el 
+  const snakeTamano = snake.getBoundingClientRect(); //método que devuelve información sobre el 
   //tamaño de un elemento y su posición
-  const manzanaRect = manzana.getBoundingClientRect();
-  const contenedorRect = contenedor.getBoundingClientRect();
+  const manzanaTamano = manzana.getBoundingClientRect();
+  const contenedorTamano = contenedor.getBoundingClientRect();
 
   // 2. Se calculan las posiciones de la serpiente y la manzana relativas al contenedor.
   //Esto se hace restando la posición del borde izquierdo y superior del contenedor de las posiciones de
   // la serpiente y la manzana.
-  const snakeLeft = snakeRect.left - contenedorRect.left;
-  const snakeTop = snakeRect.top - contenedorRect.top;
-  const manzanaLeft = manzanaRect.left - contenedorRect.left;
-  const manzanaTop = manzanaRect.top - contenedorRect.top;
+  const snakeIzq = snakeTamano.left - contenedorTamano.left;
+  const snakeTop = snakeTamano.top - contenedorTamano.top;
+  const manzanaIzq = manzanaTamano.left - contenedorTamano.left;
+  const manzanaTop = manzanaTamano.top - contenedorTamano.top;
 
   // 3. Verificar la colisión
-  return (
-    Math.abs(snakeLeft - manzanaLeft) < snake.clientWidth &&
-    Math.abs(snakeTop - manzanaTop) < snake.clientHeight
-  );
+  let colision = false;
+  const izquierdas = Math.abs (snakeIzq - manzanaIzq);
+  const tops = Math.abs(snakeTop - manzanaTop);
+  if(izquierdas < snake.clientWidth && tops < snake.clientHeight){
+    colision = true;
+  }
+  return colision;
 }
 
 // Mover la manzana a una posición inicial aleatoria
@@ -55,10 +62,9 @@ moverManzana();
 
 // Función para aumentar el tamaño de la serpiente
 function aumentarTamanoSerpiente() {
-  snakeWidth += 20;
-  snakeHeight += 20;
+  snakeWidth += 5;
   snake.style.width = snakeWidth + "px";
-  snake.style.height = snakeHeight + "px";
+
 }
 
 // Añadir el evento keydown al documento
@@ -85,5 +91,7 @@ document.addEventListener("keydown", (event) => {
     console.log("¡Colisión detectada! Moviendo la manzana.");
     moverManzana();
     aumentarTamanoSerpiente();
+    contadorPuntos += 10;
+    contador.textContent = contadorPuntos;
   }
 });

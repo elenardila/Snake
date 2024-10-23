@@ -37,3 +37,13 @@ img{
     position: relative;
 }
 
+#puntos {
+    text-align: center;
+    background-color: white;
+    height: 30px;
+    width: 200px;
+    text-align: center;
+    border-radius: 5px;
+    margin: auto;
+}
+
